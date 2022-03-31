@@ -51,19 +51,13 @@ public class SelectContactsActivity extends AppCompatActivity {
                 String[] projection = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER};
                 Cursor cursor = this.getContentResolver().query(contactData, projection, null, null, null);
                 Log.i("Selected","Cursor made");
+                Log.i("Selected","Cursor size" + cursor.getCount());
                 try
                 {
-                    // Double-check that you
-                    // actually got results
-                    if (cursor.getCount() == 0) return;
-
-                    // Pull out the first column
-                    // of the first row of data
-                    // that is your contact's name
-                    cursor.moveToFirst();
-
-                    String name = cursor.getString(0);
-                    Log.i("Selected","contact selected " + name);
+                    while(cursor.moveToNext()) {
+                        String num = cursor.getString(0);
+                        Log.i("Selected","Contact: " + num);
+                    }
 
                 }
                 finally
