@@ -9,6 +9,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -17,6 +18,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.format.DateFormat;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -42,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         text1 = findViewById(R.id.text_1);
+        TextView text = (TextView) findViewById(R.id.textView);
+        text.setMovementMethod(LinkMovementMethod.getInstance());
 //        bt = findViewById(R.id.panic);
 //        bt.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -52,6 +56,16 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
+        Button helpLine = (Button) findViewById(R.id.helplineBtn);
+
+        helpLine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, HelplineActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void sendMessage(View view) {
@@ -60,6 +74,14 @@ public class MainActivity extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             mp.setLooping(true);
             mp.start();
+            getLocation();
+        }else {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+        }
+    }
+
+    public void assist(View view){
+        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             getLocation();
         }else {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
@@ -87,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            // Do something with the time chosen by the user
+            // how long it should taker the user to get back from their adventure(map)
         }
     }
 

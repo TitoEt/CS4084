@@ -6,26 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <Button
-        android:backgroundTint="@android:color/holo_red_dark"
         android:id="@+id/panicBt"
         android:layout_width="192dp"
         android:layout_height="204dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="284dp"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:onClick="sendMessage"
         android:text="PANIC"
         app:cornerRadius="100dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="sendMessage" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/emBt"
+        android:layout_width="192dp"
+        android:layout_height="204dp"
+        android:layout_marginTop="60dp"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        android:onClick="assist"
+        android:text="HELP"
+        app:cornerRadius="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="72dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/panicBt" />
 
@@ -37,17 +54,17 @@
         android:layout_marginBottom="32dp"
         android:text="Self Defence"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/helpBt"
+        app:layout_constraintEnd_toStartOf="@+id/helplineBtn"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/helpBt"
+        android:id="@+id/helplineBtn"
         android:layout_width="84dp"
         android:layout_height="70dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="32dp"
-        android:text="Help"
+        android:text="Help Line"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/mapsBt"
         app:layout_constraintStart_toEndOf="@+id/defenseBt" />
@@ -61,7 +78,7 @@
         android:text="Plan My Trip"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/helpBt"
+        app:layout_constraintStart_toEndOf="@+id/helplineBtn"
         android:onClick="showTimePickerDialog"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

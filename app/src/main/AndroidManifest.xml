@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.cs4084"
     tools:ignore="CoarseFineLocation">
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -13,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CS4084">
         <activity
-            android:name=".VerifyActivity"
+            android:name=".HelplineActivity"
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
