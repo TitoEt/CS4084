@@ -44,8 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         text1 = findViewById(R.id.text_1);
-        TextView text = (TextView) findViewById(R.id.textView);
-        text.setMovementMethod(LinkMovementMethod.getInstance());
+
 //        bt = findViewById(R.id.panic);
 //        bt.setOnClickListener(new View.OnClickListener() {
 //            @Override
