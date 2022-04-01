@@ -1,8 +1,6 @@
 package com.example.cs4084;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,8 +12,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class SelectContactsActivity extends AppCompatActivity {
     private static final int CONTACT_REQUEST_CODE = 100;
+    private String emergencyContact;
 
     private Button select;
 
@@ -50,15 +54,13 @@ public class SelectContactsActivity extends AppCompatActivity {
             if (contactData != null) {
                 String[] projection = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER};
                 Cursor cursor = this.getContentResolver().query(contactData, projection, null, null, null);
-                Log.i("Selected","Cursor made");
-                Log.i("Selected","Cursor size" + cursor.getCount());
                 try
                 {
-                    while(cursor.moveToNext()) {
-                        String num = cursor.getString(0);
-                        Log.i("Selected","Contact: " + num);
-                    }
-
+                    if(cursor.getCount() == 0) return;
+                    cursor.moveToFirst();
+                    emergencyContact = cursor.getString(0);
+                    Log.i("Selected","Emergency Contact" + emergencyContact);
+                    storeUserInfo();
                 }
                 finally
                 {
@@ -66,5 +68,19 @@ public class SelectContactsActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    private void storeUserInfo() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Intent intent = getIntent();
+
+        Map<String,Object> userData = new HashMap<>();
+        String formattedName = intent.getStringExtra("name");
+        formattedName = formattedName.substring(0,1).toUpperCase() + formattedName.substring(1);
+        userData.put("name",formattedName);
+        userData.put("phoneNumber",intent.getStringExtra("phoneNumber"));
+        userData.put("emergencyContact",emergencyContact);
+
+        db.collection("users").document(intent.getStringExtra("uid")).set(userData);
     }
 }

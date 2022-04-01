@@ -30,8 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText number;
     private FirebaseAuth auth;
     private static final int REQUEST_READ_CONTACTS_PERMISSION = 1;
-    //send name and phone to db
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +63,11 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
+                            String uid = auth.getCurrentUser().getUid();
                             Intent intent = new Intent(RegisterActivity.this,SelectContactsActivity.class);
+                            intent.putExtra("uid", uid);
+                            intent.putExtra("name",name.getText().toString());
+                            intent.putExtra("phoneNumber",number.getText().toString());
                             startActivity(intent);
                             finish();
                         }
