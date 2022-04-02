@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CS4084">
         <activity
-            android:name=".SelectContactsActivity"
+            android:name=".SelectEmergencyContactActivity"
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"

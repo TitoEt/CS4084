@@ -60,13 +60,15 @@ public class SelectEmergencyContactActivity extends AppCompatActivity {
                     cursor.moveToFirst();
                     emergencyContact = cursor.getString(0);
                     Log.i("Selected","Emergency Contact" + emergencyContact);
+                    cursor.close();
                     storeUserInfo();
                     Intent intent = new Intent(this,MainActivity.class);
                     startActivity(intent);
                     finish();
                 }
-                finally
+                catch (Exception e)
                 {
+                    Log.e("Error", e.getMessage());
                     cursor.close();
                 }
             }
