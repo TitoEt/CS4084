@@ -28,6 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText email;
     private EditText password;
     private EditText number;
+    private Button register;
     private FirebaseAuth auth;
     private static final int REQUEST_READ_CONTACTS_PERMISSION = 1;
     
@@ -38,20 +39,19 @@ public class RegisterActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        Button register = (Button) findViewById(R.id.registerButton);
+        register = (Button) findViewById(R.id.registerButton);
         name = (EditText) findViewById(R.id.editTextName);
         email = (EditText) findViewById(R.id.editTextEmail);
         password = (EditText) findViewById(R.id.editTextPassword);
         number =  (EditText) findViewById(R.id.editTextNumber);
 
+        requestContactsPermission();
+
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(validateName() && validateEmail() && validateNumber() && validatePassword()) {
-                    requestContactsPermission();
-                    if(hasContactsPermission()) {
-                        register();
-                    }
+                    register();
                 }
             }
         });
@@ -64,7 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             String uid = auth.getCurrentUser().getUid();
-                            Intent intent = new Intent(RegisterActivity.this,SelectContactsActivity.class);
+                            Intent intent = new Intent(RegisterActivity.this,SelectEmergencyContactActivity.class);
                             intent.putExtra("uid", uid);
                             intent.putExtra("name",name.getText().toString());
                             intent.putExtra("phoneNumber",number.getText().toString());
@@ -160,5 +160,6 @@ public class RegisterActivity extends AppCompatActivity {
         if (requestCode == REQUEST_READ_CONTACTS_PERMISSION && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
             Toast.makeText(this, "Contact permissions must be enabled to use this app", Toast.LENGTH_LONG).show();
         }
+        register.setEnabled(hasContactsPermission());
     }
 }

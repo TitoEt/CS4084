@@ -17,7 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SelectContactsActivity extends AppCompatActivity {
+public class SelectEmergencyContactActivity extends AppCompatActivity {
     private static final int CONTACT_REQUEST_CODE = 100;
     private String emergencyContact;
 
@@ -26,7 +26,7 @@ public class SelectContactsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_contacts);
+        setContentView(R.layout.activity_select_contact);
 
         select = (Button) findViewById(R.id.selectContacts);
 
