@@ -3,4 +3,16 @@
     <string name="women_aid">
         <a href='https://www.womensaid.ie/services/helpline.html'> Women\'s Aid</a>
     </string>
+
+    <string name="dv_and_a">
+        <a href='https://www2.hse.ie/wellbeing/mental-health/domestic-violence-and-abuse.html'> Domestic Violence and Abuse</a>
+    </string>
+
+    <string name="w_and_g_network">
+        <a href='https://www.wgn.org.uk/our-services/advice-and-helplines'> Women and Girls Network</a>
+    </string>
+
+    <string name="safe_ire">
+        <a href='https://www.safeireland.ie/get-help/where-to-find-help/'> Safe Ireland</a>
+    </string>
 </resources>
