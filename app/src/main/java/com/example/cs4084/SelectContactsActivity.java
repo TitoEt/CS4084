@@ -61,6 +61,9 @@ public class SelectContactsActivity extends AppCompatActivity {
                     emergencyContact = cursor.getString(0);
                     Log.i("Selected","Emergency Contact" + emergencyContact);
                     storeUserInfo();
+                    Intent intent = new Intent(this,MainActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
                 finally
                 {
