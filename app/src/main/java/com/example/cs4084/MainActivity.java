@@ -15,6 +15,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.format.DateFormat;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.VideoView;
 
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -64,7 +66,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button selfDef = (Button) findViewById(R.id.defenseBt);
+
+        selfDef.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                VideoView videoView = findViewById(R.id.video_view);
+                Intent intent = new Intent(MainActivity.this, SelfDefActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
+
 
     public void sendMessage(View view) {
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.alarm);
