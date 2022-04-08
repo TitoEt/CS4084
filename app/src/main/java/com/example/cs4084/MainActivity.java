@@ -9,6 +9,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -33,8 +34,9 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    TextView text1;
-    Button bt;
+    private TextView text1;
+    private double latitude;
+    private double longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         text1 = findViewById(R.id.text_1);
-//        bt = findViewById(R.id.panic);
+        getLocation();
+
+        Button planTrip = findViewById(R.id.mapsBt);
+        planTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                // check location got and internet connection here??
+                Intent intent = new Intent(MainActivity.this,PlanTripActivity.class);
+                intent.putExtra("latitude",latitude);
+                intent.putExtra("longitude",longitude);
+                startActivity(intent);
+            }
+        });
+
+//        Button bt = findViewById(R.id.panic);
 //        bt.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -66,31 +82,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void showTimePickerDialog(View view) {
-        DialogFragment newFragment = new TimePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "timePicker");
-    }
-
-    public static class TimePickerFragment extends DialogFragment
-            implements TimePickerDialog.OnTimeSetListener {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current time as the default values for the picker
-            final Calendar c = Calendar.getInstance();
-            int hour = c.get(Calendar.HOUR_OF_DAY);
-            int minute = c.get(Calendar.MINUTE);
-
-            // Create a new instance of TimePickerDialog and return it
-            return new TimePickerDialog(getActivity(), this, hour, minute,
-                    DateFormat.is24HourFormat(getActivity()));
-        }
-
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            // Do something with the time chosen by the user
-        }
-    }
-
     @SuppressLint("MissingPermission")
     private void getLocation() {
         FusedLocationProviderClient mFusedLocationClient =  LocationServices.getFusedLocationProviderClient(this);
@@ -102,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         Geocoder geocoder = new Geocoder(MainActivity.this, Locale.getDefault());
                         List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                        latitude = addresses.get(0).getLatitude();
+                        longitude = addresses.get(0).getLongitude();
                         text1.setText(Html.fromHtml("<font ><b>Latitude :</b></font>" + addresses.get(0).getLatitude() +"<font ><b><br>Longitude :</b></font>" + addresses.get(0).getLongitude()
                                 +"<font ><b><br>Country :</b></font>" + addresses.get(0).getCountryName()
                                 +"<font ><b><br>Locality :</b></font>" + addresses.get(0).getLocality()

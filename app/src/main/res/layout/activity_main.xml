@@ -61,7 +61,6 @@
         android:text="Plan My Trip"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/helpBt"
-        android:onClick="showTimePickerDialog"/>
+        app:layout_constraintStart_toEndOf="@+id/helpBt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

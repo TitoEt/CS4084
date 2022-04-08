@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">CS4084</string>
+    <string name="app_name">Securus</string>
+    <string name="google_maps_api_key">AIzaSyD3Y2yS58UTPhLoqjyWkJPSTr39wQRXZmE</string>
 </resources>
