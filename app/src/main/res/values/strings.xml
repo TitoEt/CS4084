@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Securus</string>
-    <string name="google_maps_api_key">AIzaSyD3Y2yS58UTPhLoqjyWkJPSTr39wQRXZmE</string>
+    <string name="google_maps_api_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD3Y2yS58UTPhLoqjyWkJPSTr39wQRXZmE</string>
+    <string name="google_maps_toast_msg">Multiple destinations can\'t be set.\nDrag the checkpoint to update your destination.</string>
 </resources>

@@ -41,7 +41,6 @@ public class PlanTripActivity extends FragmentActivity implements OnMapReadyCall
         mapFragment.getMapAsync(this);
     }
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
@@ -52,20 +51,17 @@ public class PlanTripActivity extends FragmentActivity implements OnMapReadyCall
             @Override
             public void onMapClick(@NonNull LatLng point) {
                 if(checkPoints.size() < 2) {
-                    map.addMarker(new MarkerOptions().position(point).title("End Point").draggable(true));
-                    checkPoints.add(point);
+                    markEndPoint(point);
                 }
                 else {
-                    Toast.makeText(PlanTripActivity.this,"Multiple destinations can't be set.\nDrag the checkpoint to update your destination.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(PlanTripActivity.this, PlanTripActivity.this.getString(R.string.google_maps_toast_msg), Toast.LENGTH_LONG).show();
                 }
-
             }
         });
-        // only allow drag destination marker
+
         map.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
             @Override
             public void onMarkerDrag(@NonNull Marker marker) {
-
             }
 
             @Override
@@ -74,13 +70,11 @@ public class PlanTripActivity extends FragmentActivity implements OnMapReadyCall
                 checkPoints.clear();
                 markStartPoint();
                 LatLng updatedDestination = marker.getPosition();
-                map.addMarker(new MarkerOptions().position(updatedDestination).title("Updated End Point"));
-                checkPoints.add(updatedDestination);
+                markEndPoint(updatedDestination);
             }
 
             @Override
             public void onMarkerDragStart(@NonNull Marker marker) {
-
             }
         });
     }
@@ -88,5 +82,10 @@ public class PlanTripActivity extends FragmentActivity implements OnMapReadyCall
     private void markStartPoint() {
         map.addMarker(new MarkerOptions().position(startPosition).title("Starting Point"));
         checkPoints.add(startPosition);
+    }
+
+    private void markEndPoint(LatLng destination) {
+        map.addMarker(new MarkerOptions().position(destination).title("End Point").draggable(true));
+        checkPoints.add(destination);
     }
 }
