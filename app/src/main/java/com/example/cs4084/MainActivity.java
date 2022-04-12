@@ -3,6 +3,7 @@ package com.example.cs4084;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
 import android.Manifest;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView text1;
     private double latitude;
     private double longitude;
+    private boolean locationEnabled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +54,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 // check location got and internet connection here??
-                Intent intent = new Intent(MainActivity.this,PlanTripActivity.class);
-                intent.putExtra("latitude",latitude);
-                intent.putExtra("longitude",longitude);
-                startActivity(intent);
+                if(locationEnabled) {
+                    Intent intent = new Intent(MainActivity.this,PlanTripActivity.class);
+                    intent.putExtra("latitude",latitude);
+                    intent.putExtra("longitude",longitude);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(MainActivity.this, "Location permissions must be enabled to use this feature", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
@@ -84,6 +93,10 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("MissingPermission")
     private void getLocation() {
+        locationEnabled = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        if(!locationEnabled) {
+            return;
+        }
         FusedLocationProviderClient mFusedLocationClient =  LocationServices.getFusedLocationProviderClient(this);
         mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
