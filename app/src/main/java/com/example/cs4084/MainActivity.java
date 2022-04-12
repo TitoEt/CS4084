@@ -8,8 +8,10 @@ import androidx.fragment.app.DialogFragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -19,6 +21,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -40,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     private double latitude;
     private double longitude;
     private boolean locationEnabled;
+    private boolean proceedToMaps;
+    private static final int REQUEST_LOCATION_ACCESS = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,17 +58,13 @@ public class MainActivity extends AppCompatActivity {
         planTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                // check location got and internet connection here??
+                // check internet connection here??
                 if(locationEnabled) {
-                    Intent intent = new Intent(MainActivity.this,PlanTripActivity.class);
-                    intent.putExtra("latitude",latitude);
-                    intent.putExtra("longitude",longitude);
-                    startActivity(intent);
+                   openPlanTripActivity();
                 }
                 else {
-                    Toast.makeText(MainActivity.this, "Location permissions must be enabled to use this feature", Toast.LENGTH_LONG).show();
+                    locationAlert();
                 }
-
             }
         });
 
@@ -82,13 +83,21 @@ public class MainActivity extends AppCompatActivity {
     public void sendMessage(View view) {
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.alarm);
 //        mp.stop();
-        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+        if (locationEnabled) {
             mp.setLooping(true);
             mp.start();
             getLocation();
-        }else {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
         }
+        else {
+            requestLocationPermission();
+        }
+    }
+
+    private void openPlanTripActivity() {
+        Intent intent = new Intent(this,PlanTripActivity.class);
+        intent.putExtra("latitude",latitude);
+        intent.putExtra("longitude",longitude);
+        startActivity(intent);
     }
 
     @SuppressLint("MissingPermission")
@@ -108,15 +117,57 @@ public class MainActivity extends AppCompatActivity {
                         List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                         latitude = addresses.get(0).getLatitude();
                         longitude = addresses.get(0).getLongitude();
-                        text1.setText(Html.fromHtml("<font ><b>Latitude :</b></font>" + addresses.get(0).getLatitude() +"<font ><b><br>Longitude :</b></font>" + addresses.get(0).getLongitude()
+                        Log.i("Location","Lat" + latitude);
+                        Log.i("Location","Lon" + longitude);
+                        if(proceedToMaps) {
+                            openPlanTripActivity();
+                        }
+                        /*text1.setText(Html.fromHtml("<font ><b>Latitude :</b></font>" + addresses.get(0).getLatitude() +"<font ><b><br>Longitude :</b></font>" + addresses.get(0).getLongitude()
                                 +"<font ><b><br>Country :</b></font>" + addresses.get(0).getCountryName()
                                 +"<font ><b><br>Locality :</b></font>" + addresses.get(0).getLocality()
-                                +"<font ><b><br>address :</b></font>" + addresses.get(0).getAddressLine(0)));
+                                +"<font ><b><br>address :</b></font>" + addresses.get(0).getAddressLine(0)));*/
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }
         });
+    }
+
+    private void locationAlert() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Location permissions must be enabled to use this feature. Would you like to update your permissions to continue?");
+        alertDialogBuilder.setPositiveButton("Update",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        requestLocationPermission();
+                    }
+                });
+
+        alertDialogBuilder.setNegativeButton("No Thanks", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == REQUEST_LOCATION_ACCESS && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Log.i("Location","Location permission granted");
+            proceedToMaps = true;
+            getLocation();
+        }
+    }
+
+    private void requestLocationPermission() {
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_ACCESS);
     }
 }
