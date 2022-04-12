@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CS4084</string>
+    <string-array name="alarms_array">
+        <item>no alarm</item>
+        <item>car alarm</item>
+        <item>emergency alarm</item>
+        <item>fire alarm</item>
+    </string-array>
 </resources>
