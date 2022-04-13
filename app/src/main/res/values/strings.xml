@@ -4,4 +4,11 @@
     <string name="google_maps_toast_msg">Multiple destinations can\'t be set.\nDrag the checkpoint to update your destination.</string>
     <string name="permission_feedback">Contact permissions and Location permissions must be enabled to use this app.</string>
     <string name="location_service_feedback">Location services must be turned on to use this feature.</string>
+
+    <string-array name="alarms_array">
+        <item>no alarm</item>
+        <item>car alarm</item>
+        <item>emergency alarm</item>
+        <item>fire alarm</item>
+    </string-array>
 </resources>

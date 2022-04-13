@@ -5,14 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.location.LocationManagerCompat;
-import androidx.fragment.app.DialogFragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -22,51 +20,117 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.format.DateFormat;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView text1;
     private double latitude;
     private double longitude;
+    private String locality;
+    private String address;
     private boolean locationPermission;
     private boolean locationOn;
     private boolean proceedToMaps;
     private static final int REQUEST_LOCATION_ACCESS = 100;
+    private static final int REQUEST_SMS_PERMISSION = 1;
+    public static final String TAG = "SECURUS - MAIN";
+    private String emergencyContact;
+    private String name;
+    private MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        text1 = findViewById(R.id.text_1);
+        Button panicBt = (Button) findViewById(R.id.panicBt);
+        panicBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                raiseAlarm();
+            }
+        });
 
-//        Button bt = findViewById(R.id.panic);
-//        bt.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                sendMessage(view);
-////                mp.setLooping(true);
-////                mp.start();
-//            }
-//        });
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.alarms_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(mp != null && mp.isPlaying() == true) {
+                    mp.reset();
+                }
+                switch (i) {
+                    case 0:
+                        mp = null;
+                        break;
+                    case 1:
+                        mp = MediaPlayer.create(MainActivity.this, R.raw.car_alarm);
+                        break;
+                    case 2:
+                        mp = MediaPlayer.create(MainActivity.this, R.raw.alarm);
+                        break;
+                    case 3:
+                        mp = MediaPlayer.create(MainActivity.this, R.raw.fire_alarm);
+                        break;
+                }
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                mp = null;
+            }
+        });
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED) {
+                Log.d("permission", "permission denied to SEND_SMS - requesting it");
+                String[] permissions = {Manifest.permission.SEND_SMS};
+                requestPermissions(permissions, REQUEST_SMS_PERMISSION);
+            }
+        }
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Intent intent = getIntent();
+        DocumentReference docRef = db.collection("users").document(intent.getStringExtra("uid"));
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        emergencyContact = document.getString("emergencyContact");
+                        name = document.getString("name");
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
     }
 
     @Override
@@ -98,17 +162,41 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
     }
 
-    public void sendMessage(View view) {
-        final MediaPlayer mp = MediaPlayer.create(this, R.raw.alarm);
-//        mp.stop();
-        if (locationOn && locationPermission) {
-            mp.setLooping(true);
-            mp.start();
-            getLocation();
+    public void endAlarm(View view) {
+        new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to stop the alarm?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        if(mp != null) {
+                            mp.pause();
+                        }
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+    public void raiseAlarm() {
+        if(mp != null && mp.isPlaying() == false) {
+                mp.setLooping(true);
+                mp.start();
         }
-        else {
-            requestLocationPermission();
+        if(locationPermission && locationOn) {
+            sendMessage();
         }
+    }
+
+    private void sendMessage() {
+        String messageToSend = "!!!EMERGENCY ALERT!!!\n\n" + name
+                + " has alerted that they are in danger.\n\nTheir current location is:"
+                + "\nLocality : " + locality
+                +"\nAddress : " + address
+                + "\nLatitude : " + latitude
+                +"\nLongitude : " + longitude;
+        SmsManager sms = SmsManager.getDefault();
+        ArrayList<String> message = sms.divideMessage(messageToSend);
+        sms.sendMultipartTextMessage(emergencyContact, null, message, null, null);
     }
 
     private void openPlanTripActivity() {
@@ -131,9 +219,11 @@ public class MainActivity extends AppCompatActivity {
                         List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                         latitude = addresses.get(0).getLatitude();
                         longitude = addresses.get(0).getLongitude();
-                        Log.i("Location","Lat" + latitude);
-                        Log.i("Location","Lon" + longitude);
-                        if(proceedToMaps) {
+                        locality = addresses.get(0).getLocality();
+                        address = addresses.get(0).getAddressLine(0);
+                        Log.i(TAG,"Lat" + latitude);
+                        Log.i(TAG,"Lon" + longitude);
+                         if(proceedToMaps) {
                             if(locationOn) {
                                 openPlanTripActivity();
                             }
@@ -141,11 +231,9 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this,MainActivity.this.getString(R.string.location_service_feedback), Toast.LENGTH_LONG).show();
                             }
                         }
-                        /*text1.setText(Html.fromHtml("<font ><b>Latitude :</b></font>" + addresses.get(0).getLatitude() +"<font ><b><br>Longitude :</b></font>" + addresses.get(0).getLongitude()
-                                +"<font ><b><br>Country :</b></font>" + addresses.get(0).getCountryName()
-                                +"<font ><b><br>Locality :</b></font>" + addresses.get(0).getLocality()
-                                +"<font ><b><br>address :</b></font>" + addresses.get(0).getAddressLine(0)));*/
-                    } catch (IOException e) {
+
+                    }
+                    catch (IOException e) {
                         e.printStackTrace();
                     }
                 }

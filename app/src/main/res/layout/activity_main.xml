@@ -7,31 +7,20 @@
     tools:context=".MainActivity">
 
     <Button
-        android:backgroundTint="@android:color/holo_red_dark"
         android:id="@+id/panicBt"
-        android:layout_width="192dp"
-        android:layout_height="204dp"
-        android:layout_marginTop="200dp"
+        android:layout_width="303dp"
+        android:layout_height="309dp"
+        android:layout_marginTop="208dp"
+        android:backgroundTint="@android:color/holo_red_dark"
         android:text="PANIC"
-        app:cornerRadius="100dp"
+        app:cornerRadius="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="sendMessage" />
-
-    <TextView
-        android:id="@+id/text_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/panicBt" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/defenseBt"
-        android:layout_width="139dp"
+        android:layout_width="130dp"
         android:layout_height="70dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="32dp"
@@ -54,7 +43,7 @@
 
     <Button
         android:id="@+id/mapsBt"
-        android:layout_width="139dp"
+        android:layout_width="130dp"
         android:layout_height="70dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
@@ -62,5 +51,42 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/helpBt" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="227dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/alarmChoice"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/alarmChoice"
+        android:layout_width="83dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="Alarm Type:"
+        app:layout_constraintEnd_toStartOf="@+id/spinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="285dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:text="STOP ALARM"
+        android:onClick="endAlarm"
+        app:layout_constraintBottom_toTopOf="@+id/spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
