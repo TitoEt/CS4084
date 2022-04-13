@@ -6,9 +6,9 @@
     <string name="location_service_feedback">Location services must be turned on to use this feature.</string>
 
     <string-array name="alarms_array">
-        <item>no alarm</item>
-        <item>car alarm</item>
-        <item>emergency alarm</item>
-        <item>fire alarm</item>
+        <item>Emergency Alarm</item>
+        <item>Car Alarm</item>
+        <item>Fire Alarm</item>
+        <item>No Alarm</item>
     </string-array>
 </resources>

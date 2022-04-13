@@ -83,23 +83,23 @@ public class MainActivity extends AppCompatActivity {
                 }
                 switch (i) {
                     case 0:
-                        mp = null;
+                        mp = MediaPlayer.create(MainActivity.this, R.raw.alarm);
                         break;
                     case 1:
                         mp = MediaPlayer.create(MainActivity.this, R.raw.car_alarm);
                         break;
                     case 2:
-                        mp = MediaPlayer.create(MainActivity.this, R.raw.alarm);
+                        mp = MediaPlayer.create(MainActivity.this, R.raw.fire_alarm);
                         break;
                     case 3:
-                        mp = MediaPlayer.create(MainActivity.this, R.raw.fire_alarm);
+                        mp = null;
                         break;
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                mp = null;
+                mp = MediaPlayer.create(MainActivity.this, R.raw.alarm);
             }
         });
 
