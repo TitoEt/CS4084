@@ -1,0 +1,259 @@
+[33mcommit 04a753788a6b1b44916fba27933f98c75be8f4e9[m[33m ([m[1;36mHEAD -> [m[1;32mdashboard[m[33m, [m[1;31morigin/prototype[m[33m, [m[1;32mprototype[m[33m)[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Wed Apr 13 15:42:33 2022 +0100
+
+    Update .gitignore
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit 78eaeb2337deaa1e1068ae7d379d2152d62053a9[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Wed Apr 13 15:37:20 2022 +0100
+
+    Code clean up
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit 7c555f4770a94428457eabae4b6f31a2cb1d5ff7[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Wed Apr 13 15:05:44 2022 +0100
+
+    Add default alarm
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit 861f988812fb6b201ab9f9af0f0816b26995d82f[m
+Merge: 1594214 293473f
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Wed Apr 13 14:39:48 2022 +0100
+
+    Merge branch 'dashboard' into prototype
+
+[33mcommit 1594214a79fb40192f95ef4d3cd3441b5258d8e8[m[33m ([m[1;31morigin/maps[m[33m, [m[1;32mmaps[m[33m)[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Wed Apr 13 12:37:41 2022 +0100
+
+    Fix "Confirm Route" glitch
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit ebfb17019032e95ce534522273d187a3da07b33c[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Wed Apr 13 12:25:50 2022 +0100
+
+    Check if location services enabled
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit 2cc20d1d066d44d0277dc55826b6d82597a77dc1[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Wed Apr 13 11:44:28 2022 +0100
+
+    Draw route between map markers
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit 293473f65059f2e6ca618f128e746720647b9c2d[m[33m ([m[1;31morigin/dashboard[m[33m)[m
+Author: TTLawlor <lawlortamara@gmail.com>
+Date:   Tue Apr 12 21:42:17 2022 +0100
+
+    WIP: Update dashboard
+
+[33mcommit 99ce16477ffa20906f0b38cfa25215c63a48151b[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Tue Apr 12 18:29:13 2022 +0100
+
+    AndroidManifest.xml: Fix error
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit 51a50865be722633a2ac49212d0b8739af847900[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Tue Apr 12 18:28:10 2022 +0100
+
+    Implement Location permissions
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit 83becbe4d1b203803325be9f4df74993f432540e[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Tue Apr 12 15:29:15 2022 +0100
+
+    WIP: Ask for location permissions
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit 014a3ac4fdf231a1a3b13eba2c3811eadd1104f8[m
+Merge: a545336 abf7404
+Author: TTLawlor <lawlortamara@gmail.com>
+Date:   Tue Apr 12 14:00:44 2022 +0100
+
+    WIP: Update Dashboard
+
+[33mcommit beb318d9d53be29c9b05d0d788e0fb4bdf1715d5[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Fri Apr 8 21:49:32 2022 +0100
+
+    Add timer fragement to plan trip activity
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit 377caa64ac38bc46852af81faf56a75d1d46154e[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Fri Apr 8 21:28:35 2022 +0100
+
+    Update activity_plan_trip.xml
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit 42c7b8218a75ad916104ab030e8781cc4d73fee3[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Fri Apr 8 20:58:15 2022 +0100
+
+    Make destination marker draggable
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit b3fe803ce10660b319f86756512c1fb9a6b18740[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Fri Apr 8 14:12:54 2022 +0100
+
+    WIP: Implement Google Maps
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit e353ada83a78cbd9c2f9a1f67ed779ae3d04d8b2[m
+Merge: 599e0bd a545336
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Fri Apr 8 10:38:01 2022 +0100
+
+    Merge branch 'dashboard' into maps
+
+[33mcommit 599e0bdbbbc5e11ec4d167b4705fabb214d2fd6a[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: d857759 abf7404
+Author: ishalazo <58404081+ishalazo@users.noreply.github.com>
+Date:   Sun Apr 3 18:30:00 2022 +0100
+
+    Merge pull request #1 from clodaghwalsh17/login
+    
+    Merge login to main
+
+[33mcommit abf7404deef95b375f598ae441d448c8c4f99b6d[m[33m ([m[1;31morigin/login[m[33m)[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Sat Apr 2 15:27:53 2022 +0100
+
+    Fix register flow
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit 00370c257f0b5965ea1dafc48f6b1362abb5492c[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Sat Apr 2 14:58:32 2022 +0100
+
+    Clean up login and register flow
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit af65240c1822058498f7e9d53cd5fee88a0f8b93[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Sat Apr 2 13:36:10 2022 +0100
+
+    Add intent from SelectContactsActivity to MainActivity
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit d1ef120b5132e5317aec22a117693b95990f8ba8[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Fri Apr 1 12:40:34 2022 +0100
+
+    Changed status bar colour
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit 4f6ab1686b3f3392e16fd70907c02a74397af5b9[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Fri Apr 1 12:26:35 2022 +0100
+
+    Send user info to Firestore
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit a5453360585d601aef0d8e56c78a9039cc80a1e9[m
+Author: TitoEt <19248547@studentmail.ul.ie>
+Date:   Thu Mar 31 13:03:51 2022 +0100
+
+    Set a time for start and end time
+
+[33mcommit 7a121432eb7282ed832fbc54a2745542a35124d0[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Thu Mar 31 12:36:28 2022 +0100
+
+    WIP: Collecting contact
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit dbae6e88e997a7764c9aa37424bc2994664497d7[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Thu Mar 31 12:19:14 2022 +0100
+
+    WIP: Collecting contacts
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit 96aa2c30e0fb424eff69a38dd0cfd45bc53e003a[m
+Author: TTLawlor <lawlortamara@gmail.com>
+Date:   Wed Mar 30 16:34:29 2022 +0100
+
+    WIP: Update Dashboard
+
+[33mcommit 88b8b6b898229514764dd150299e633006303e2f[m[33m ([m[1;32mlogin[m[33m)[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Wed Mar 30 13:15:41 2022 +0100
+
+    Remove verify activity
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit 62bfe8d87c25b61178aabd0f9eee105d4898f70d[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Wed Mar 30 13:09:33 2022 +0100
+
+    Register and Login implemented
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit f818dfe462bd689a16c504537e144a40a06abe90[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Sat Mar 26 21:24:46 2022 +0000
+
+    WIP: Phone register
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit 1f62596afe0193aee5b8a67705189e49665ba071[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Fri Mar 25 21:51:14 2022 +0000
+
+    WIP: Register and Login
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit d857759731531f293a68ada18cc7bbe9766799d3[m
+Author: Clodagh Walsh <42538837+clodaghwalsh17@users.noreply.github.com>
+Date:   Fri Mar 25 13:26:34 2022 +0000
+
+    Create README.md
+
+[33mcommit 336da7f67715feee3c8453b0847ea9aa4383d93e[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Fri Mar 25 13:25:13 2022 +0000
+
+    Change app name to Securus and add login fields
+    
+    Signed-off-by: Clodagh Walsh <clodaghwalsh17@gmail.com>
+
+[33mcommit ae348fb2f2ee0b649790b03c1983ce72fb80f749[m[33m ([m[1;32mmaster[m[33m)[m
+Author: Clodagh Walsh <clodaghwalsh17@gmail.com>
+Date:   Wed Mar 23 17:25:28 2022 +0000
+
+    Initial commit
