@@ -27,7 +27,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.LocationServices;
@@ -78,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(mp != null && mp.isPlaying() == true) {
+                if(mp != null && mp.isPlaying()) {
                     mp.reset();
                 }
                 switch (i) {
@@ -178,9 +177,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void raiseAlarm() {
-        if(mp != null && mp.isPlaying() == false) {
-                mp.setLooping(true);
-                mp.start();
+        if(mp != null && !mp.isPlaying()) {
+            mp.setLooping(true);
+            mp.start();
         }
         if(locationPermission && locationOn) {
             sendMessage();
@@ -192,8 +191,7 @@ public class MainActivity extends AppCompatActivity {
                 + " has alerted that they are in danger.\n\nTheir current location is:"
                 + "\nLocality : " + locality
                 +"\nAddress : " + address
-                + "\nLatitude : " + latitude
-                +"\nLongitude : " + longitude;
+                + "\nLatitude and Longitude: " + latitude + "," + longitude;
         SmsManager sms = SmsManager.getDefault();
         ArrayList<String> message = sms.divideMessage(messageToSend);
         sms.sendMultipartTextMessage(emergencyContact, null, message, null, null);

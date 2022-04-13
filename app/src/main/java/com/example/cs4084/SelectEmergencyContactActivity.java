@@ -95,9 +95,7 @@ public class SelectEmergencyContactActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         Map<String,Object> userData = new HashMap<>();
-        String formattedName = intent.getStringExtra("name");
-        formattedName = formattedName.substring(0,1).toUpperCase() + formattedName.substring(1);
-        userData.put("name",formattedName);
+        userData.put("name",intent.getStringExtra("name"));
         userData.put("phoneNumber",intent.getStringExtra("phoneNumber"));
         userData.put("emergencyContact",emergencyContact);
 
@@ -110,8 +108,8 @@ public class SelectEmergencyContactActivity extends AppCompatActivity {
         String messageToSend;
         Intent intent = getIntent();
         
-        String formattedName = intent.getStringExtra("name");
-        messageToSend = "SECURUS UPDATE\n\n" + formattedName + " has chosen you as their emergency contact.\nYou will be notified of their current location if they indicate that they are in danger.\n";
+        String name = intent.getStringExtra("name");
+        messageToSend = "SECURUS UPDATE\n\n" + name + " has chosen you as their emergency contact.\nYou will be notified of their current location if they indicate that they are in danger.\n";
         SmsManager sms = SmsManager.getDefault();
         ArrayList<String> message = sms.divideMessage(messageToSend);
         sms.sendMultipartTextMessage(emergencyContact, null, message, null, null);

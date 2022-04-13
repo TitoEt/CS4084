@@ -67,9 +67,11 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             String uid = auth.getCurrentUser().getUid();
+                            String formattedName = name.getText().toString();
+                            formattedName = formattedName.substring(0,1).toUpperCase() + formattedName.substring(1);
                             Intent intent = new Intent(RegisterActivity.this,SelectEmergencyContactActivity.class);
                             intent.putExtra("uid", uid);
-                            intent.putExtra("name",name.getText().toString());
+                            intent.putExtra("name",formattedName);
                             intent.putExtra("phoneNumber",number.getText().toString());
                             startActivity(intent);
                             finish();
