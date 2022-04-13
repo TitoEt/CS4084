@@ -53,8 +53,13 @@ public class PlanTripActivity extends FragmentActivity implements OnMapReadyCall
         confirmRoute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment newFragment = new TimePickerFragment();
-                newFragment.show(getSupportFragmentManager(), "timePicker");
+                if(checkPoints.size() == 2) {
+                    DialogFragment newFragment = new TimePickerFragment();
+                    newFragment.show(getSupportFragmentManager(), "timePicker");
+                }
+                else {
+                    Toast.makeText(PlanTripActivity.this, "Please select your destination first", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
