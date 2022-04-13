@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.location.LocationManagerCompat;
 import androidx.fragment.app.DialogFragment;
 
 import android.Manifest;
@@ -11,12 +12,14 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Html;
@@ -42,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView text1;
     private double latitude;
     private double longitude;
-    private boolean locationEnabled;
+    private boolean locationPermission;
+    private boolean locationOn;
     private boolean proceedToMaps;
     private static final int REQUEST_LOCATION_ACCESS = 100;
 
@@ -52,21 +56,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         text1 = findViewById(R.id.text_1);
-        getLocation();
-
-        Button planTrip = findViewById(R.id.mapsBt);
-        planTrip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                // check internet connection here??
-                if(locationEnabled) {
-                   openPlanTripActivity();
-                }
-                else {
-                    locationAlert();
-                }
-            }
-        });
 
 //        Button bt = findViewById(R.id.panic);
 //        bt.setOnClickListener(new View.OnClickListener() {
@@ -80,10 +69,39 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+
+        locationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        locationOn = LocationManagerCompat.isLocationEnabled((LocationManager) this.getSystemService(Context.LOCATION_SERVICE));
+        if(locationPermission && locationOn) {
+            getLocation();
+        }
+
+        Button planTrip = findViewById(R.id.mapsBt);
+        planTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                // check internet connection here??
+                if(locationPermission && locationOn) {
+                    openPlanTripActivity();
+                }
+                else if(locationPermission) {
+                    Toast.makeText(MainActivity.this,MainActivity.this.getString(R.string.location_service_feedback) , Toast.LENGTH_LONG).show();
+                }
+                else {
+                    locationAlert();
+                }
+            }
+        });
+
+        super.onStart();
+    }
+
     public void sendMessage(View view) {
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.alarm);
 //        mp.stop();
-        if (locationEnabled) {
+        if (locationOn && locationPermission) {
             mp.setLooping(true);
             mp.start();
             getLocation();
@@ -102,10 +120,6 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("MissingPermission")
     private void getLocation() {
-        locationEnabled = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-        if(!locationEnabled) {
-            return;
-        }
         FusedLocationProviderClient mFusedLocationClient =  LocationServices.getFusedLocationProviderClient(this);
         mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
@@ -120,7 +134,12 @@ public class MainActivity extends AppCompatActivity {
                         Log.i("Location","Lat" + latitude);
                         Log.i("Location","Lon" + longitude);
                         if(proceedToMaps) {
-                            openPlanTripActivity();
+                            if(locationOn) {
+                                openPlanTripActivity();
+                            }
+                            else {
+                                Toast.makeText(MainActivity.this,MainActivity.this.getString(R.string.location_service_feedback), Toast.LENGTH_LONG).show();
+                            }
                         }
                         /*text1.setText(Html.fromHtml("<font ><b>Latitude :</b></font>" + addresses.get(0).getLatitude() +"<font ><b><br>Longitude :</b></font>" + addresses.get(0).getLongitude()
                                 +"<font ><b><br>Country :</b></font>" + addresses.get(0).getCountryName()
@@ -170,4 +189,5 @@ public class MainActivity extends AppCompatActivity {
     private void requestLocationPermission() {
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_ACCESS);
     }
+
 }
