@@ -51,7 +51,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         Intent intent = new Intent(context, TrackJourneyService.class);
         context.startService(intent);
 
-        PendingIntent pendingIntent = PendingIntent.getService(context,BROADCAST_REQUEST_CODE,intent,0);
+        PendingIntent pendingIntent = PendingIntent.getService(context,BROADCAST_REQUEST_CODE,intent,PendingIntent.FLAG_IMMUTABLE);
 
         SharedPreferences sharedPreferences = context.getSharedPreferences("Securus", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
