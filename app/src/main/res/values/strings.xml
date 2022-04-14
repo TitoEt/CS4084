@@ -4,4 +4,9 @@
     <string name="google_maps_toast_msg">Multiple destinations can\'t be set.\nDrag the checkpoint to update your destination.</string>
     <string name="permission_feedback">Contact permissions and Location permissions must be enabled to use this app.</string>
     <string name="location_service_feedback">Location services must be turned on to use this feature.</string>
+    <string name="confirm_arrival_prompt">Have you arrived safely at your destination yet?</string>
+    <string name="confirm_arrival_btn_text">Yes/I expect to arrive shortly</string>
+    <string name="sos_btn_text">HELP!</string>
+    <string name="notification_title">End of Planned Journey</string>
+    <string name="notification_text">Click to indicate your safe arrival or otherwise</string>
 </resources>

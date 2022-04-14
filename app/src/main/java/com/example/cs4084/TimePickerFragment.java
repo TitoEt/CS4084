@@ -36,8 +36,11 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         Context context = getActivity();
-        Intent intent = new Intent(context, TimerReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,BROADCAST_REQUEST_CODE,intent,0);
+        Intent intent = new Intent(context, TrackJourneyService.class);
+        intent.putExtra("msg", "hi");
+        context.startService(intent);
+
+        PendingIntent pendingIntent = PendingIntent.getService(context,BROADCAST_REQUEST_CODE,intent,0);
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, view.getHour());
@@ -47,8 +50,8 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         Date returnTime = calendar.getTime();
         long duration = returnTime.getTime() - departTime.getTime();
 
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + duration, pendingIntent);
+//        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+//        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + duration, pendingIntent);
         Toast.makeText(context, "Expected Trip Duration is " + duration/60000 + " minutes", Toast.LENGTH_LONG).show();
     }
 }

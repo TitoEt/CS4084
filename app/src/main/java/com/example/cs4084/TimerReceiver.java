@@ -10,7 +10,7 @@ public class TimerReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(5000);
+        Intent serviceIntent = new Intent(context,TrackJourneyService.class);
+        context.startService(serviceIntent);
     }
 }

@@ -35,6 +35,10 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -49,24 +53,37 @@ public class MainActivity extends AppCompatActivity {
     private boolean locationOn;
     private boolean proceedToMaps;
     private static final int REQUEST_LOCATION_ACCESS = 100;
+    public static final String TAG = "SECURUS - MAIN";
+    private static String name;
+    private static String emergencyContact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        text1 = findViewById(R.id.text_1);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        String uid = auth.getUid();
 
-//        Button bt = findViewById(R.id.panic);
-//        bt.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                sendMessage(view);
-////                mp.setLooping(true);
-////                mp.start();
-//            }
-//        });
-
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference docRef = db.collection("users").document(uid);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        emergencyContact = document.getString("emergencyContact");
+                        name = document.getString("name");
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
     }
 
     @Override
@@ -188,6 +205,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void requestLocationPermission() {
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_ACCESS);
+    }
+
+    public static String getName() {
+        return name;
+    }
+
+    public static String getEmergencyContact() {
+        return emergencyContact;
     }
 
 }
