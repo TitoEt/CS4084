@@ -9,25 +9,26 @@
 
         <Button
             android:id="@+id/endAlarmBtn"
-            android:layout_width="347dp"
-            android:layout_height="81dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="32dp"
-            android:backgroundTint="#CF1742"
+            android:layout_width="426dp"
+            android:layout_height="130dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/gradient_alarm"
+            android:backgroundTint="@null"
             android:text="STOP ALARM"
             android:textSize="30sp"
             android:textStyle="bold"
             app:cornerRadius="50dp"
             app:layout_constraintBottom_toTopOf="@+id/spinner"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.533"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/panicBt"
-            android:layout_width="303dp"
-            android:layout_height="309dp"
-            android:layout_marginTop="208dp"
+            android:layout_width="359dp"
+            android:layout_height="362dp"
+            android:layout_marginTop="216dp"
             android:background="@drawable/gradient_drawable"
             android:text="PANIC"
             android:textSize="55sp"
@@ -52,7 +53,7 @@
             android:id="@+id/spinner"
             android:layout_width="235dp"
             android:layout_height="32dp"
-            android:layout_marginTop="112dp"
+            android:layout_marginTop="144dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/alarmChoice"
@@ -63,7 +64,7 @@
             android:layout_width="107dp"
             android:layout_height="34dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="112dp"
+            android:layout_marginTop="144dp"
             android:gravity="center"
             android:text="Alarm Type:"
             android:textAlignment="viewEnd"
@@ -72,8 +73,6 @@
             app:layout_constraintEnd_toStartOf="@+id/spinner"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
