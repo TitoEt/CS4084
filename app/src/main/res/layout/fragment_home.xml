@@ -11,23 +11,28 @@
             android:id="@+id/endAlarmBtn"
             android:layout_width="347dp"
             android:layout_height="81dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:layout_marginBottom="32dp"
+            android:backgroundTint="#CF1742"
             android:text="STOP ALARM"
-            android:textSize="20sp"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:cornerRadius="50dp"
             app:layout_constraintBottom_toTopOf="@+id/spinner"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/panicBt"
             android:layout_width="303dp"
             android:layout_height="309dp"
             android:layout_marginTop="208dp"
-            android:backgroundTint="@android:color/holo_red_dark"
+            android:background="@drawable/gradient_drawable"
             android:text="PANIC"
-            android:textSize="34sp"
-            app:cornerRadius="200dp"
+            android:textSize="55sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,6 +42,7 @@
             android:layout_width="130dp"
             android:layout_height="70dp"
             android:layout_marginBottom="24dp"
+            android:backgroundTint="#FF9800"
             android:text="Plan My Trip"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,9 +50,8 @@
 
         <Spinner
             android:id="@+id/spinner"
-            android:layout_width="227dp"
+            android:layout_width="235dp"
             android:layout_height="32dp"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="112dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,13 +60,15 @@
 
         <TextView
             android:id="@+id/alarmChoice"
-            android:layout_width="83dp"
-            android:layout_height="32dp"
+            android:layout_width="107dp"
+            android:layout_height="34dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="112dp"
-            android:layout_marginEnd="8dp"
             android:gravity="center"
             android:text="Alarm Type:"
+            android:textAlignment="viewEnd"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/spinner"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
