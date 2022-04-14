@@ -2,7 +2,9 @@ package com.example.cs4084;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -38,6 +40,10 @@ public class ConfirmArrivalActivity extends AppCompatActivity {
     }
 
     private void endActivity() {
+        SharedPreferences sharedPreferences = getSharedPreferences("Securus", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("tripInProgress",false);
+        editor.apply();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();

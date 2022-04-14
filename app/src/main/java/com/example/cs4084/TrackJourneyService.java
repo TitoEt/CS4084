@@ -36,6 +36,7 @@ public class TrackJourneyService extends Service {
         builder.setContentIntent(pendingIntent);
         builder.setAutoCancel(true);
 
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
         {
             int importance = NotificationManager.IMPORTANCE_HIGH;

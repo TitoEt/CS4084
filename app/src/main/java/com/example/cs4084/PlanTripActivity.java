@@ -5,6 +5,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,6 +22,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONObject;
 
@@ -39,6 +42,9 @@ public class PlanTripActivity extends FragmentActivity implements OnMapReadyCall
     private GoogleMap map;
     private ArrayList<LatLng> checkPoints;
     private LatLng startPosition;
+    private Button confirmRoute;
+    private Button cancelTrip;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,15 +52,23 @@ public class PlanTripActivity extends FragmentActivity implements OnMapReadyCall
         setContentView(R.layout.activity_plan_trip);
 
         checkPoints = new ArrayList<>();
+        sharedPreferences = getSharedPreferences("Securus", MODE_PRIVATE);
         Intent intent = getIntent();
         startPosition = new LatLng(intent.getDoubleExtra("latitude",0),intent.getDoubleExtra("longitude",0) );
 
-        Button confirmRoute = findViewById(R.id.confirmRoute);
+        confirmRoute = findViewById(R.id.confirmRoute);
         confirmRoute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(checkPoints.size() == 2) {
                     DialogFragment newFragment = new TimePickerFragment();
+                    Bundle bundle = new Bundle();
+                    GsonBuilder gson = new GsonBuilder();
+                    String origin = gson.create().toJson(checkPoints.get(0));
+                    String dst = gson.create().toJson(checkPoints.get(1));
+                    bundle.putString("Start Point", origin);
+                    bundle.putString("End Point", dst);
+                    newFragment.setArguments(bundle);
                     newFragment.show(getSupportFragmentManager(), "timePicker");
                 }
                 else {
@@ -63,15 +77,60 @@ public class PlanTripActivity extends FragmentActivity implements OnMapReadyCall
             }
         });
 
+        cancelTrip = findViewById(R.id.cancelTrip);
+        cancelTrip.setVisibility(View.GONE);
+        cancelTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                endTrip();
+            }
+        });
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
+    private void endTrip() {
+        map.clear();
+        checkPoints.clear();
+        markStartPoint(startPosition);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("tripInProgress",false);
+        editor.apply();
+        confirmRoute.setVisibility(View.VISIBLE);
+        cancelTrip.setVisibility(View.GONE);
+    }
+
+    protected void updateMap() {
+        map.clear();
+
+        if(sharedPreferences.getBoolean("tripInProgress",false)) {
+            Toast.makeText(this, "Trip in progress", Toast.LENGTH_LONG).show();
+            confirmRoute.setVisibility(View.GONE);
+            cancelTrip.setVisibility(View.VISIBLE);
+            checkPoints.clear();
+            Gson gson = new Gson();
+            String src = sharedPreferences.getString("src", "");
+            String dst = sharedPreferences.getString("dst", "");
+            LatLng startPoint = gson.fromJson(src, LatLng.class);
+            LatLng endPoint = gson.fromJson(dst, LatLng.class);
+            startPosition = startPoint;
+            markStartPoint(startPoint);
+            markEndPoint(endPoint);
+            drawRoute(checkPoints);
+        }
+        else {
+            confirmRoute.setVisibility(View.VISIBLE);
+            cancelTrip.setVisibility(View.GONE);
+        }
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        markStartPoint();
+        updateMap();
+        markStartPoint(startPosition);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(startPosition,15));
 
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -79,7 +138,7 @@ public class PlanTripActivity extends FragmentActivity implements OnMapReadyCall
             public void onMapClick(@NonNull LatLng point) {
                 if(checkPoints.size() < 2) {
                     markEndPoint(point);
-                    drawRoute();
+                    drawRoute(checkPoints);
                 }
                 else {
                     Toast.makeText(PlanTripActivity.this, PlanTripActivity.this.getString(R.string.google_maps_toast_msg), Toast.LENGTH_LONG).show();
@@ -96,10 +155,10 @@ public class PlanTripActivity extends FragmentActivity implements OnMapReadyCall
             public void onMarkerDragEnd(@NonNull Marker marker) {
                 map.clear();
                 checkPoints.clear();
-                markStartPoint();
+                markStartPoint(startPosition);
                 LatLng updatedDestination = marker.getPosition();
                 markEndPoint(updatedDestination);
-                drawRoute();
+                drawRoute(checkPoints);
             }
 
             @Override
@@ -108,9 +167,9 @@ public class PlanTripActivity extends FragmentActivity implements OnMapReadyCall
         });
     }
 
-    private void markStartPoint() {
-        map.addMarker(new MarkerOptions().position(startPosition).title("Starting Point"));
-        checkPoints.add(startPosition);
+    private void markStartPoint(LatLng origin) {
+        map.addMarker(new MarkerOptions().position(origin).title("Starting Point"));
+        checkPoints.add(origin);
     }
 
     private void markEndPoint(LatLng destination) {
@@ -118,7 +177,7 @@ public class PlanTripActivity extends FragmentActivity implements OnMapReadyCall
         checkPoints.add(destination);
     }
 
-    private void drawRoute() {
+    private void drawRoute(ArrayList<LatLng> checkPoints) {
         String url = buildDirectionsUrl(checkPoints.get(0),checkPoints.get(1));
         Log.i("Route", url);
 
