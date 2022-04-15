@@ -33,6 +33,7 @@ public class TrackJourneyService extends Service {
         builder.setContentText(getString(R.string.notification_text));
         builder.setContentIntent(pendingIntent);
         builder.setAutoCancel(true);
+        builder.setOngoing(true);
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
         {
