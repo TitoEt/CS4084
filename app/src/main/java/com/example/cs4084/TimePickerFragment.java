@@ -74,5 +74,6 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         Toast.makeText(context, "Expected Trip Duration is " + duration/60000 + " minutes", Toast.LENGTH_LONG).show();
+        ((PlanTripActivity)getActivity()).updateMap();
     }
 }
