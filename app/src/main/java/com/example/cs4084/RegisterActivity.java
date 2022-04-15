@@ -33,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button register;
     private FirebaseAuth auth;
     private static final int REQUEST_PERMISSIONS = 1;
-    private static final String[] permissions = {Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION};
+    private static final String[] permissions = {Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.SEND_SMS};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
