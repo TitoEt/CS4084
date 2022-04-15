@@ -26,6 +26,8 @@ import java.util.Date;
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
     private static final int BROADCAST_REQUEST_CODE = 0;
     private LatLng origin,destination;
+    private static AlarmManager alarmManager;
+    private static PendingIntent pendingIntent;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -51,7 +53,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
         Intent intent = new Intent(context, AlarmReceiver.class);
         intent.setAction("android.intent.action.NOTIFY");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,BROADCAST_REQUEST_CODE,intent,PendingIntent.FLAG_IMMUTABLE);
+        pendingIntent = PendingIntent.getBroadcast(context,BROADCAST_REQUEST_CODE,intent,PendingIntent.FLAG_IMMUTABLE);
 
         SharedPreferences sharedPreferences = context.getSharedPreferences("Securus", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -71,9 +73,13 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         Date returnTime = calendar.getTime();
         long duration = returnTime.getTime() - departTime.getTime();
 
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         Toast.makeText(context, "Expected Trip Duration is " + duration/60000 + " minutes", Toast.LENGTH_LONG).show();
         ((PlanTripActivity)getActivity()).updateMap();
+    }
+
+    public static void cancelAlarm() {
+        alarmManager.cancel(pendingIntent);
     }
 }

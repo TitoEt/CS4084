@@ -100,6 +100,7 @@ public class PlanTripActivity extends FragmentActivity implements OnMapReadyCall
         editor.apply();
         confirmRoute.setVisibility(View.VISIBLE);
         cancelTrip.setVisibility(View.GONE);
+        TimePickerFragment.cancelAlarm();
     }
 
     protected void updateMap() {
