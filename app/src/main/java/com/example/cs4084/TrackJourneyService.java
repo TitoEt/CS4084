@@ -23,12 +23,12 @@ public class TrackJourneyService extends Service {
         MediaPlayer mp = MediaPlayer.create(this,R.raw.notification_alert);
         mp.start();
         Intent popupIntent = new Intent(this.getApplicationContext(), ConfirmArrivalActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, popupIntent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, popupIntent, PendingIntent.FLAG_IMMUTABLE);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-
-        builder.setSmallIcon(R.drawable.ic_launcher_foreground);
+        builder.setSmallIcon(R.drawable.ic_notification_foreground);
+        builder.setColor(14029665);
         builder.setContentTitle(getString(R.string.notification_title));
         builder.setContentText(getString(R.string.notification_text));
         builder.setContentIntent(pendingIntent);
