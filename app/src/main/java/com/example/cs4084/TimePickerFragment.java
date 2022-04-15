@@ -24,7 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
-    private static final int BROADCAST_REQUEST_CODE = 200;
+    private static final int BROADCAST_REQUEST_CODE = 0;
     private LatLng origin,destination;
 
     @Override
@@ -48,10 +48,10 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         Context context = getActivity();
-        Intent intent = new Intent(context, TrackJourneyService.class);
-        context.startService(intent);
 
-        PendingIntent pendingIntent = PendingIntent.getService(context,BROADCAST_REQUEST_CODE,intent,0);
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        intent.setAction("android.intent.action.NOTIFY");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,BROADCAST_REQUEST_CODE,intent,PendingIntent.FLAG_IMMUTABLE);
 
         SharedPreferences sharedPreferences = context.getSharedPreferences("Securus", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -71,8 +71,8 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         Date returnTime = calendar.getTime();
         long duration = returnTime.getTime() - departTime.getTime();
 
-//        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-//        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + duration, pendingIntent);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         Toast.makeText(context, "Expected Trip Duration is " + duration/60000 + " minutes", Toast.LENGTH_LONG).show();
     }
 }

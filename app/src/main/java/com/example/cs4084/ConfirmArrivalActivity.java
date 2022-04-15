@@ -1,10 +1,13 @@
 package com.example.cs4084;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -50,15 +53,15 @@ public class ConfirmArrivalActivity extends AppCompatActivity {
     }
 
     private void sendSOS() {
-        String name = MainActivity.getName();
-        String emergencyContact = MainActivity.getEmergencyContact();
-        String messageToSend = "!!!SECURUS EMERGENCY ALERT!!!\n\n" + name + " has alerted that they are in danger and do not expect to arrive at their destination safely";
-        SmsManager sms = SmsManager.getDefault();
-        ArrayList<String> message = sms.divideMessage(messageToSend);
-        sms.sendMultipartTextMessage(emergencyContact, null, message, null, null);
-        Log.d("SOS", "Sent");
-
-        Log.d("SOS", "Name = " + name);
-        Log.d("SOS", "Contact = " + emergencyContact);
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+            String name = MainActivity.getName();
+            String emergencyContact = MainActivity.getEmergencyContact();
+            String messageToSend = "!!!SECURUS EMERGENCY ALERT!!!\n\n" + name + " has alerted that they are in danger and do not expect to arrive at their destination safely";
+            SmsManager sms = SmsManager.getDefault();
+            ArrayList<String> message = sms.divideMessage(messageToSend);
+            sms.sendMultipartTextMessage(emergencyContact, null, message, null, null);
+            Log.d("SOS", "Sent");
+            Log.d("SOS", "Contact = " + emergencyContact);
+        }
     }
 }

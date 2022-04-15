@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Vibrator;
 import android.widget.Toast;
 
-public class TimerReceiver extends BroadcastReceiver {
+public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
