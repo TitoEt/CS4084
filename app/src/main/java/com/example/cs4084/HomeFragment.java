@@ -61,9 +61,8 @@ public class HomeFragment extends Fragment {
     private View v;
 
     public HomeFragment(){
-        // require a empty public constructor
+        // requires a empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -126,7 +125,6 @@ public class HomeFragment extends Fragment {
         });
 
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -192,18 +190,20 @@ public class HomeFragment extends Fragment {
     }
 
     public void endAlarm() {
-        new AlertDialog.Builder(getActivity())
-                .setMessage("Are you sure you want to stop the alarm?")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        if(mp != null) {
-                            mp.pause();
+        if(mp.isPlaying()) {
+            new AlertDialog.Builder(getActivity())
+                    .setMessage("Are you sure you want to stop the alarm?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            if(mp != null) {
+                                mp.pause();
+                            }
                         }
-                    }
-                })
-                .setNegativeButton("No", null)
-                .show();
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+        }
     }
 
     public void raiseAlarm() {
