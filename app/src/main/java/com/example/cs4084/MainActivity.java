@@ -33,6 +33,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -50,12 +51,12 @@ public class MainActivity extends AppCompatActivity {
     private boolean locationPermission;
     private boolean locationOn;
     private boolean proceedToMaps;
+    private MediaPlayer mp;
+    private static String name;
+    private static String emergencyContact;
     private static final int REQUEST_LOCATION_ACCESS = 100;
     private static final int REQUEST_SMS_PERMISSION = 1;
     public static final String TAG = "SECURUS - MAIN";
-    private String emergencyContact;
-    private String name;
-    private MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,9 +111,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        String uid = auth.getUid();
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Intent intent = getIntent();
-        DocumentReference docRef = db.collection("users").document(intent.getStringExtra("uid"));
+        DocumentReference docRef = db.collection("users").document(uid);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -187,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void sendMessage() {
-        String messageToSend = "!!!EMERGENCY ALERT!!!\n\n" + name
+        String messageToSend = "!!!SECURUS EMERGENCY ALERT!!!\n\n" + name
                 + " has alerted that they are in danger.\n\nTheir current location is:"
                 + "\nLocality : " + locality
                 +"\nAddress : " + address
@@ -274,6 +277,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void requestLocationPermission() {
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_ACCESS);
+    }
+
+    public static String getName() {
+        return name;
+    }
+
+    public static String getEmergencyContact() {
+        return emergencyContact;
     }
 
 }

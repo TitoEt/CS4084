@@ -11,6 +11,33 @@
         <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.196" />
         <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/mipmap-anydpi-v26/ic_launcher_og.xml" value="0.2765" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/drawable-v24/gradient_drawable.xml" value="0.2525" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2525" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/drawable/ic_defense_foreground.xml" value="0.4115" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/drawable/ic_help_foreground.xml" value="0.4115" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/drawable/ic_home_foreground.xml" value="0.425" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/drawable/ic_launcher_background.xml" value="0.25" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.4115" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/drawable/ic_maps_foreground.xml" value="0.4115" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/drawable/ic_notification_foreground.xml" value="0.25" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/drawable/ic_timer_foreground.xml" value="0.177" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/layout/activity_confirm_arrival.xml" value="0.24427083333333333" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/layout/activity_main.xml" value="0.15471698113207547" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/layout/activity_plan_trip.xml" value="0.246875" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/layout/activity_register.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/layout/activity_select_contact.xml" value="0.40398550724637683" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/layout/activity_selfdef.xml" value="0.3541666666666667" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/layout/fragment_blank.xml" value="0.3541666666666667" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/layout/fragment_helpline.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/layout/fragment_selfdef.xml" value="0.17831813576494426" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.196" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/mipmap-anydpi-v26/ic_launcher_og.xml" value="0.2765" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.177" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/mipmap-anydpi-v26/ic_timer.xml" value="0.177" />
+        <entry key="..\:/Users/lawlo/AndroidStudioProjects/CS4084/app/src/main/res/mipmap-anydpi-v26/ic_timer_round.xml" value="0.177" />
         <entry key="app/src/main/res/layout/activity_aid.xml" value="0.19236369885896384" />
         <entry key="app/src/main/res/layout/activity_helpline.xml" value="0.11867948182198078" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.157298277425204" />

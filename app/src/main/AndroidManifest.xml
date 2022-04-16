@@ -6,8 +6,10 @@
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
@@ -20,10 +22,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CS4084">
 
+        <service
+            android:name=".TrackJourneyService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver
+            android:name=".AlarmReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.NOTIFY" />
+            </intent-filter>
+        </receiver>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_api_key" />
 
+        <activity
+            android:name=".ConfirmArrivalActivity"
+            android:exported="false" />
         <activity
             android:name=".PlanTripActivity"
             android:exported="false" />
