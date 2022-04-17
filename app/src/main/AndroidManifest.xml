@@ -44,9 +44,6 @@
             android:name=".ConfirmArrivalActivity"
             android:exported="false" />
         <activity
-            android:name=".PlanTripActivity"
-            android:exported="false" />
-        <activity
             android:name=".SelectEmergencyContactActivity"
             android:exported="false" />
         <activity

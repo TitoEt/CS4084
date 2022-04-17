@@ -44,13 +44,6 @@ public class SelectEmergencyContactActivity extends AppCompatActivity {
     }
 
     private void selectEmergencyContact() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED) {
-                Log.d("permission", "permission denied to SEND_SMS - requesting it");
-                String[] permissions = {Manifest.permission.SEND_SMS};
-                requestPermissions(permissions, PERMISSION_REQUEST_CODE);
-            }
-        }
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
         startActivityForResult(intent,CONTACT_REQUEST_CODE);

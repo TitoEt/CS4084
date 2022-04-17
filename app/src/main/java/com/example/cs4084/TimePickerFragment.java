@@ -27,7 +27,12 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     private static final int BROADCAST_REQUEST_CODE = 0;
     private LatLng origin,destination;
     private static AlarmManager alarmManager;
+    private static Intent intent;
     private static PendingIntent pendingIntent;
+
+    public TimePickerFragment() {
+        // requires a empty public constructor
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -51,7 +56,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         Context context = getActivity();
 
-        Intent intent = new Intent(context, AlarmReceiver.class);
+        intent = new Intent(context, AlarmReceiver.class);
         intent.setAction("android.intent.action.NOTIFY");
         pendingIntent = PendingIntent.getBroadcast(context,BROADCAST_REQUEST_CODE,intent,PendingIntent.FLAG_IMMUTABLE);
 
@@ -76,10 +81,13 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         Toast.makeText(context, "Expected Trip Duration is " + duration/60000 + " minutes", Toast.LENGTH_LONG).show();
-        ((PlanTripActivity)getActivity()).updateMap();
+
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
     }
 
-    public static void cancelAlarm() {
+    public static void cancelAlarm(Context context) {
+        pendingIntent = PendingIntent.getBroadcast(context, BROADCAST_REQUEST_CODE,intent,PendingIntent.FLAG_IMMUTABLE);
+        alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(pendingIntent);
     }
 }

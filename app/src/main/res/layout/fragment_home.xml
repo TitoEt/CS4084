@@ -38,17 +38,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/mapsBt"
-            android:layout_width="130dp"
-            android:layout_height="70dp"
-            android:layout_marginBottom="24dp"
-            android:backgroundTint="#FF9800"
-            android:text="Plan My Trip"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="235dp"

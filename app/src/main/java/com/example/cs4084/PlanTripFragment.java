@@ -2,15 +2,17 @@ package com.example.cs4084;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -37,29 +39,42 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class PlanTripActivity extends FragmentActivity implements OnMapReadyCallback {
+public class PlanTripFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap map;
     private ArrayList<LatLng> checkPoints;
     private LatLng startPosition;
     private Button confirmRoute;
     private Button cancelTrip;
-    SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_plan_trip);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view =inflater.inflate(R.layout.fragment_plan_trip,container,false);
+
+        Utilities.getLocation(getActivity());
+
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         checkPoints = new ArrayList<>();
-        sharedPreferences = getSharedPreferences("Securus", MODE_PRIVATE);
-        Intent intent = getIntent();
-        startPosition = new LatLng(intent.getDoubleExtra("latitude",0),intent.getDoubleExtra("longitude",0) );
+        sharedPreferences = getActivity().getSharedPreferences("Securus", Context.MODE_PRIVATE);
 
-        confirmRoute = findViewById(R.id.confirmRoute);
+        startPosition = new LatLng(Utilities.latitude,Utilities.longitude);
+
+        confirmRoute = (Button) getActivity().findViewById(R.id.confirmRoute);
         confirmRoute.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 if(checkPoints.size() == 2) {
                     DialogFragment newFragment = new TimePickerFragment();
                     Bundle bundle = new Bundle();
@@ -69,26 +84,22 @@ public class PlanTripActivity extends FragmentActivity implements OnMapReadyCall
                     bundle.putString("Start Point", origin);
                     bundle.putString("End Point", dst);
                     newFragment.setArguments(bundle);
-                    newFragment.show(getSupportFragmentManager(), "timePicker");
+                    newFragment.show(getActivity().getSupportFragmentManager(), "timePicker");
                 }
                 else {
-                    Toast.makeText(PlanTripActivity.this, "Please select your destination first", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Please select your destination first", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
-        cancelTrip = findViewById(R.id.cancelTrip);
+        cancelTrip = (Button) getActivity().findViewById(R.id.cancelTrip);
         cancelTrip.setVisibility(View.GONE);
         cancelTrip.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 endTrip();
             }
         });
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
     }
 
     private void endTrip() {
@@ -100,14 +111,14 @@ public class PlanTripActivity extends FragmentActivity implements OnMapReadyCall
         editor.apply();
         confirmRoute.setVisibility(View.VISIBLE);
         cancelTrip.setVisibility(View.GONE);
-        TimePickerFragment.cancelAlarm();
+        TimePickerFragment.cancelAlarm(getActivity());
     }
 
     protected void updateMap() {
         map.clear();
 
         if(sharedPreferences.getBoolean("tripInProgress",false)) {
-            Toast.makeText(this, "Trip in progress", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Trip in progress", Toast.LENGTH_LONG).show();
             confirmRoute.setVisibility(View.GONE);
             cancelTrip.setVisibility(View.VISIBLE);
             checkPoints.clear();
@@ -118,7 +129,7 @@ public class PlanTripActivity extends FragmentActivity implements OnMapReadyCall
             LatLng endPoint = gson.fromJson(dst, LatLng.class);
             startPosition = startPoint;
             markStartPoint(startPoint);
-            markEndPoint(endPoint);
+            markEndPoint(endPoint,false);
             drawRoute(checkPoints);
         }
         else {
@@ -129,6 +140,9 @@ public class PlanTripActivity extends FragmentActivity implements OnMapReadyCall
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        if(Utilities.address == null) {
+            Toast.makeText(getActivity(), "An error occurred loading the map please try again", Toast.LENGTH_LONG).show();
+        }
         map = googleMap;
         updateMap();
         markStartPoint(startPosition);
@@ -138,11 +152,11 @@ public class PlanTripActivity extends FragmentActivity implements OnMapReadyCall
             @Override
             public void onMapClick(@NonNull LatLng point) {
                 if(checkPoints.size() < 2) {
-                    markEndPoint(point);
+                    markEndPoint(point,true);
                     drawRoute(checkPoints);
                 }
                 else {
-                    Toast.makeText(PlanTripActivity.this, PlanTripActivity.this.getString(R.string.google_maps_toast_msg), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), getString(R.string.google_maps_toast_msg), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -158,7 +172,7 @@ public class PlanTripActivity extends FragmentActivity implements OnMapReadyCall
                 checkPoints.clear();
                 markStartPoint(startPosition);
                 LatLng updatedDestination = marker.getPosition();
-                markEndPoint(updatedDestination);
+                markEndPoint(updatedDestination,true);
                 drawRoute(checkPoints);
             }
 
@@ -173,8 +187,8 @@ public class PlanTripActivity extends FragmentActivity implements OnMapReadyCall
         checkPoints.add(origin);
     }
 
-    private void markEndPoint(LatLng destination) {
-        map.addMarker(new MarkerOptions().position(destination).title("End Point").draggable(true));
+    private void markEndPoint(LatLng destination, boolean canDrag) {
+        map.addMarker(new MarkerOptions().position(destination).title("End Point").draggable(canDrag));
         checkPoints.add(destination);
     }
 
@@ -251,7 +265,7 @@ public class PlanTripActivity extends FragmentActivity implements OnMapReadyCall
         }
     }
 
-     private class ParserTask extends AsyncTask<String,Integer,List<List<HashMap<String,String>>> > {
+    private class ParserTask extends AsyncTask<String,Integer,List<List<HashMap<String,String>>> > {
 
         @Override
         protected List<List<HashMap<String, String>>> doInBackground(String... strings) {

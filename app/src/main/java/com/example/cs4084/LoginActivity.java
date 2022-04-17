@@ -54,9 +54,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void openMainActivity() {
-        String uid = auth.getCurrentUser().getUid();
         Intent intent = new Intent(this,MainActivity.class);
-        intent.putExtra("uid", uid);
         startActivity(intent);
     }
 
