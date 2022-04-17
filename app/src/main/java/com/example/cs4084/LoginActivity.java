@@ -69,7 +69,9 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
+                            String uid = auth.getCurrentUser().getUid();
                             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                            intent.putExtra("uid", uid);
                             startActivity(intent);
                             finish();
                         }

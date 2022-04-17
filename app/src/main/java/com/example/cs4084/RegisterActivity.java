@@ -6,6 +6,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -30,8 +32,9 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText number;
     private Button register;
     private FirebaseAuth auth;
-    private static final int REQUEST_READ_CONTACTS_PERMISSION = 1;
-    
+    private static final int REQUEST_PERMISSIONS = 1;
+    private static final String[] permissions = {Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.SEND_SMS};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.editTextPassword);
         number =  (EditText) findViewById(R.id.editTextNumber);
 
-        requestContactsPermission();
+        requestPermissions();
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,9 +67,11 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             String uid = auth.getCurrentUser().getUid();
+                            String formattedName = name.getText().toString();
+                            formattedName = formattedName.substring(0,1).toUpperCase() + formattedName.substring(1);
                             Intent intent = new Intent(RegisterActivity.this,SelectEmergencyContactActivity.class);
                             intent.putExtra("uid", uid);
-                            intent.putExtra("name",name.getText().toString());
+                            intent.putExtra("name",formattedName);
                             intent.putExtra("phoneNumber",number.getText().toString());
                             startActivity(intent);
                             finish();
@@ -139,17 +144,60 @@ public class RegisterActivity extends AppCompatActivity {
         return true;
     }
 
-    private boolean hasContactsPermission()
-    {
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+    private boolean hasAllPermissions() {
+        for(String permission:permissions) {
+            if(ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    private void requestContactsPermission()
-    {
-        if (!hasContactsPermission())
-        {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, REQUEST_READ_CONTACTS_PERMISSION);
+    private boolean shouldShowPermissionRational() {
+        for(String permission:permissions) {
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+                return true;
+            }
         }
+        return false;
+    }
+
+    private void issuePermissionRequest() {
+        ActivityCompat.requestPermissions(this, permissions, REQUEST_PERMISSIONS);
+    }
+
+    private void requestPermissions() {
+        if(!hasAllPermissions()) {
+            if(shouldShowPermissionRational()) {
+                displayAlert();
+            }
+            else {
+                issuePermissionRequest();
+            }
+
+        }
+    }
+
+    private void displayAlert() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage(getString(R.string.permission_feedback) + " Would you like to update your permissions to continue?");
+                alertDialogBuilder.setPositiveButton("Update",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                issuePermissionRequest();
+                            }
+                        });
+
+        alertDialogBuilder.setNegativeButton("No Thanks", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     @Override
@@ -157,9 +205,9 @@ public class RegisterActivity extends AppCompatActivity {
     {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == REQUEST_READ_CONTACTS_PERMISSION && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
-            Toast.makeText(this, "Contact permissions must be enabled to use this app", Toast.LENGTH_LONG).show();
+        if(!hasAllPermissions()) {
+            Toast.makeText(this, this.getString(R.string.permission_feedback), Toast.LENGTH_LONG).show();
         }
-        register.setEnabled(hasContactsPermission());
+        register.setEnabled(hasAllPermissions());
     }
 }

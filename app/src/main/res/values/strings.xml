@@ -1,3 +1,34 @@
 <resources>
-    <string name="app_name">CS4084</string>
+    <string name="app_name">Securus</string>
+    <string name="women_aid">
+        <a href='https://www.womensaid.ie/services/helpline.html'> Women\'s Aid</a>
+    </string>
+
+    <string name="dv_and_a">
+        <a href='https://www2.hse.ie/wellbeing/mental-health/domestic-violence-and-abuse.html'> Domestic Violence and Abuse</a>
+    </string>
+
+    <string name="w_and_g_network">
+        <a href='https://www.wgn.org.uk/our-services/advice-and-helplines'> Women and Girls Network</a>
+    </string>
+
+    <string name="safe_ire">
+        <a href='https://www.safeireland.ie/get-help/where-to-find-help/'> Safe Ireland</a>
+    </string>
+
+    <string name="google_maps_api_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD3Y2yS58UTPhLoqjyWkJPSTr39wQRXZmE</string>
+    <string name="google_maps_toast_msg">Multiple destinations can\'t be set.\nDrag the checkpoint to update your destination.</string>
+    <string name="permission_feedback">Contact,Location and SMS permissions must be enabled to use this app.</string>
+    <string name="location_service_feedback">Location services must be turned on to use this feature.</string>
+    <string name="confirm_arrival_prompt">Have you arrived safely at your destination yet?</string>
+    <string name="confirm_arrival_btn_text">Yes/I expect to arrive shortly</string>
+    <string name="sos_btn_text">HELP!</string>
+    <string name="notification_title">End of Planned Journey</string>
+    <string name="notification_text">Click to indicate your safe arrival or otherwise</string>
+    <string-array name="alarms_array">
+        <item>Emergency Alarm</item>
+        <item>Car Alarm</item>
+        <item>Fire Alarm</item>
+        <item>No Alarm</item>
+    </string-array>
 </resources>
