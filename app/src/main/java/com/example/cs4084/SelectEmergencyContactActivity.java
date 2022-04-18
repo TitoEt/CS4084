@@ -23,7 +23,6 @@ import java.util.Map;
 
 public class SelectEmergencyContactActivity extends AppCompatActivity {
     private static final int CONTACT_REQUEST_CODE = 100;
-    private static final int PERMISSION_REQUEST_CODE = 1;
     private String emergencyContact;
 
     private Button select;
@@ -68,8 +67,6 @@ public class SelectEmergencyContactActivity extends AppCompatActivity {
                     cursor.close();
                     storeUserInfo();
                     Intent intent = new Intent(this,MainActivity.class);
-                    intent.putExtra("emergencyContact", emergencyContact);
-                    intent.putExtra("uid", intent.getStringExtra("uid"));
                     startActivity(intent);
                     finish();
                 }
