@@ -16,16 +16,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
+            app:cardBackgroundColor="#FFF7F7"
             app:cardCornerRadius="8dp"
             app:cardElevation="10dp"
             app:contentPadding="12dp">
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/helplineDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="The below links, are available, if ever you need them, please make use of the wonderful services and assistance they offer."
+                android:text="The below links are available, if ever you need them, please make use of the wonderful services and assistance they offer."
                 android:textAlignment="center"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.cardview.widget.CardView>
@@ -43,7 +45,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/womensAidLink"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/women_aid"
@@ -51,18 +53,31 @@
                     android:textColor="#E91E63"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/textView5"
+                    app:layout_constraintBottom_toTopOf="@+id/womensAidHelpline"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_editor_absoluteX="0dp" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/womensAidHelpline"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
+                    android:layout_marginBottom="6dp"
+                    android:textStyle="bold"
+                    android:text="24hr Freephone 1800 341 900"
+                    android:textAlignment="center"
+                    app:layout_constraintTop_toBottomOf="@+id/womensAidLink"
+                    app:layout_constraintBottom_toTopOf="@+id/womensAidDesc"
+                />
+
+                <TextView
+                    android:id="@+id/womensAidDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
                     android:text="The Women's Aid 24hr National Freephone Helpline offers confidential information, support and understanding to women in the Republic of Ireland, who are being abused by current or former boyfriends, partners or husbands."
                     android:textAlignment="center"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+                    app:layout_constraintTop_toBottomOf="@+id/womensAidHelpline" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -79,7 +94,128 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/wngLink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/w_and_g_network"
+                    android:textAlignment="center"
+                    android:textColor="#E91E63"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/wngHelpline"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_editor_absoluteX="0dp" />
+
+                <TextView
+                    android:id="@+id/wngHelpline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="6dp"
+                    android:textStyle="bold"
+                    android:text="Freephone 0808 801 0660\nMonday to Friday 10am-4pm\nWednesdays 6pm-9pm"
+                    android:textAlignment="center"
+                    app:layout_constraintTop_toBottomOf="@+id/wngLink"
+                    app:layout_constraintBottom_toTopOf="@+id/wngDesc"
+                    />
+
+                <TextView
+                    android:id="@+id/wngDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="There are supports available to help keep you safe. Your GP can help by referring you to appropriate supports and services in your local area."
+                    android:textAlignment="center"
+                    app:layout_constraintTop_toBottomOf="@+id/wngHelpline" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="10dp"
+            app:contentPadding="12dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/aoibhneasLink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/aoibhneas"
+                    android:textAlignment="center"
+                    android:textColor="#E91E63"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/aoibhneasHelpline"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_editor_absoluteX="0dp" />
+
+                <TextView
+                    android:id="@+id/aoibhneasHelpline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="6dp"
+                    android:textStyle="bold"
+                    android:text="24hr Freephone 1800 767 767"
+                    android:textAlignment="center"
+                    app:layout_constraintTop_toBottomOf="@+id/aoibhneasLink"
+                    app:layout_constraintBottom_toTopOf="@+id/aoibhneasDesc"
+                    />
+
+                <TextView
+                    android:id="@+id/aoibhneasDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="We are not here to tell you what to do, we do not have expectations of you or judge you in any way.\nWe are here to support you, that means listening to you and responding to your requests be it help, information or support."
+                    android:textAlignment="center"
+                    app:layout_constraintTop_toBottomOf="@+id/aoibhneasHelpline" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginBottom="6dp"
+            app:cardBackgroundColor="#FFF7F7"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="10dp"
+            app:contentPadding="12dp">
+
+            <TextView
+                android:id="@+id/futherHelp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="The following links contain more information and services you can access that could help you in a variety of situations."
+                android:textAlignment="center"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="10dp"
+            app:contentPadding="12dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/dvnaLink"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/dv_and_a"
@@ -87,20 +223,21 @@
                     android:textColor="#E91E63"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/textView6"
+                    app:layout_constraintBottom_toTopOf="@+id/dvnaDesc"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_editor_absoluteX="0dp" />
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/dvnaDesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:text="Our services around the country are providing emotional support, counselling and advice, helping women and children to find safe accommodation, supporting them to access courts and make applications for domestic violence protection orders, for example. "
                     android:textAlignment="center"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                    app:layout_constraintTop_toBottomOf="@+id/dvnaLink" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -116,44 +253,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/w_and_g_network"
-                    android:textAlignment="center"
-                    android:textColor="#E91E63"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/textView7"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:layout_editor_absoluteX="0dp" />
-
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="There are supports available to help keep you safe. Your GP can help by referring you to appropriate supports and services in your local area."
-                    android:textAlignment="center"
-                    app:layout_constraintTop_toBottomOf="@+id/textView3" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="10dp"
-            app:contentPadding="12dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/safeIELink"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -162,19 +262,19 @@
                     android:textColor="#E91E63"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/textView8"
+                    app:layout_constraintBottom_toTopOf="@+id/safeIEDesc"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_editor_absoluteX="0dp" />
 
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/safeIEDesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:text="We offer help and advice over the telephone and online, ranging from emotional support to practical support and signposting to other services that can help you."
                     android:textAlignment="center"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                    app:layout_constraintTop_toBottomOf="@+id/safeIELink" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 

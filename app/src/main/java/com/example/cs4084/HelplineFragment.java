@@ -22,17 +22,20 @@ public class HelplineFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView text = (TextView) view.findViewById(R.id.textView);
-        text.setMovementMethod(LinkMovementMethod.getInstance());
+        TextView womensAid = view.findViewById(R.id.womensAidLink);
+        womensAid.setMovementMethod(LinkMovementMethod.getInstance());
 
-        TextView text2 = (TextView) view.findViewById(R.id.textView2);
-        text2.setMovementMethod(LinkMovementMethod.getInstance());
+        TextView dvna = view.findViewById(R.id.dvnaLink);
+        dvna.setMovementMethod(LinkMovementMethod.getInstance());
 
-        TextView text3 = (TextView) view.findViewById(R.id.textView3);
-        text3.setMovementMethod(LinkMovementMethod.getInstance());
+        TextView aoibhneas = view.findViewById(R.id.aoibhneasLink);
+        aoibhneas.setMovementMethod(LinkMovementMethod.getInstance());
 
-        TextView text4 = (TextView) view.findViewById(R.id.textView4);
-        text4.setMovementMethod(LinkMovementMethod.getInstance());
+        TextView wng = view.findViewById(R.id.wngLink);
+        wng.setMovementMethod(LinkMovementMethod.getInstance());
+
+        TextView safeIE = view.findViewById(R.id.safeIELink);
+        safeIE.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     @Override
