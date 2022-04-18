@@ -8,14 +8,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class SelfDefFragment extends Fragment {
     RecyclerView recyclerView;
-    TextView selfDefTitle;
-    TextView selfDefWarning;
     ArrayList<Video> youtubeVideos = new ArrayList<>();
 
     @Override

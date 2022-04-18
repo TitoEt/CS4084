@@ -120,7 +120,7 @@ public class HomeFragment extends Fragment {
                 messageToSend += "\n\nTheir current location is:"
                         + "\nLocality : " + Utilities.locality
                         +"\nAddress : " + Utilities.address
-                        + "\nLatitude and Longitude: " + Utilities.latitude + "," + Utilities.longitude;
+                        + "\nLatitude and Longitude : " + Utilities.latitude + " , " + Utilities.longitude;
             }
             SmsManager sms = SmsManager.getDefault();
             ArrayList<String> message = sms.divideMessage(messageToSend);
