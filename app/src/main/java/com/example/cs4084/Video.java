@@ -22,11 +22,4 @@ public class Video {
     public String getDescription() {
         return description;
     }
-
-//    /**
-//     * @return Youtube Frame to be attached into a Webview.
-//     */
-//    public String getFrame(){
-//        return "<iframe width=\"100%\" height=\"100%\" src=\""+ url +"\" frameborder=\"0\" allow=\"accelerometer; encrypted-media;\" allowfullscreen></iframe>";
-//    }
 }
