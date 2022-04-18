@@ -173,7 +173,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:text="We are not here to tell you what to do, make expectations of you or judge you in any way.\nWe are here to support you, that means listening to you and responding to your requests be it help, information or support."
+                    android:text="We are not here to tell you what to do, have expectations of you or judge you in any way.\nWe are here to support you, that means listening to you and responding to your requests be it help, information or support."
                     android:textAlignment="center"
                     app:layout_constraintTop_toBottomOf="@+id/aoibhneasHelpline" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -195,7 +195,7 @@
                 android:id="@+id/futherHelp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="The following links contain more information and services you can access that could help you in a variety situations."
+                android:text="The following links contain more information and services you can access that could help you in a variety of situations."
                 android:textAlignment="center"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
