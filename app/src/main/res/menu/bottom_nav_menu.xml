@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/defense"
-        android:title="Self-Defense"
+        android:title="Self Defense"
         android:icon="@drawable/ic_defense_foreground"
         />
     <item
