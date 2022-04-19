@@ -91,6 +91,7 @@ public class SelectEmergencyContactActivity extends AppCompatActivity {
         sendMessage();
     }
 
+    // Notify contact selected
     public void sendMessage() {
         String messageToSend;
         Intent intent = getIntent();

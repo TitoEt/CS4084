@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         auth = FirebaseAuth.getInstance();
+        // Redirect user to home page if they have already logged in on this device
         if(auth.getCurrentUser() != null) {
             openMainActivity();
             finish();

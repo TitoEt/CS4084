@@ -22,7 +22,7 @@ public class HomeFragment extends Fragment {
     private MediaPlayer mp;
 
     public HomeFragment(){
-        // requires a empty public constructor
+        // Requires a empty public constructor
     }
 
     @Override
@@ -82,6 +82,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+                // Set emergency alarm as default alarm type
                 mp = MediaPlayer.create(getActivity(), R.raw.alarm);
             }
         });
@@ -114,8 +115,10 @@ public class HomeFragment extends Fragment {
     }
 
     private void sendMessage() {
+        // Send generic message if SMS permissions enabled
         if(Utilities.hasSMSPermission(getActivity()) && Utilities.emergencyContact != null) {
             String messageToSend = "!!!SECURUS EMERGENCY ALERT!!!\n\n" + Utilities.name + " has alerted that they are in danger.";
+            // Send user's location to their emergency contact if location permissions provided
             if(Utilities.hasLocationPermission(getActivity()) && Utilities.isLocationEnabled(getActivity()) && Utilities.address != null) {
                 messageToSend += "\n\nTheir current location is:"
                         + "\nLocality : " + Utilities.locality

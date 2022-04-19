@@ -28,7 +28,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     public void onBindViewHolder(VideoViewHolder holder, int position) {
         Video current = youtubeVideoList.get(position);
 
-        // Load frame of video in web view.
+        // Load frame of video in web view
 //        holder.videoWeb.loadData(current.getFrame(), "text/html", "utf-8");
         holder.videoWeb.loadUrl(current.getUrl());
         holder.title.setText(current.getTitle());

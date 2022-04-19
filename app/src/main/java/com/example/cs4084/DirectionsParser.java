@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class DirectionsParser {
+    // This class parses the JSON data returned from the Directions API
     public List<List<HashMap<String, String>>> parse(JSONObject jsonObj) {
         List<List<HashMap<String, String>>> possibleRoutes = new ArrayList<List<HashMap<String,String>>>();
         JSONArray routes,legs,steps;
@@ -46,6 +47,7 @@ public class DirectionsParser {
         return possibleRoutes;
     }
 
+    // Method courtesy of various GitHub sources
     private List decode (String s) {
         List<LatLng> poly = new ArrayList<>();
         int index = 0, len = s.length();
