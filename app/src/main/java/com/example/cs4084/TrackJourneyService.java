@@ -20,8 +20,11 @@ public class TrackJourneyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        // Sound notification alert
         MediaPlayer mp = MediaPlayer.create(this,R.raw.notification_alert);
         mp.start();
+
+        // Create notification to appear when timer elapses
         Intent popupIntent = new Intent(this.getApplicationContext(), ConfirmArrivalActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, popupIntent, PendingIntent.FLAG_IMMUTABLE);
 

@@ -137,6 +137,7 @@ public class RegisterActivity extends AppCompatActivity {
             number.setError("Please provide your phone number");
             return false;
         }
+        // Assuming app used in Ireland, all Irish numbers begin with "08"
         else if(phoneNumber.length() != 10 || !phoneNumber.substring(0,2).equals("08")) {
             number.setError("Please enter a valid phone number");
             return false;
@@ -208,6 +209,7 @@ public class RegisterActivity extends AppCompatActivity {
         if(!hasAllPermissions()) {
             Toast.makeText(this, this.getString(R.string.permission_feedback), Toast.LENGTH_LONG).show();
         }
+        // Allow registration if user accepts all permissions
         register.setEnabled(hasAllPermissions());
     }
 }

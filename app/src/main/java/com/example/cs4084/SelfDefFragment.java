@@ -29,13 +29,13 @@ public class SelfDefFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(true); //The size calculation is dependent on its children, optimises it a bit more
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         youtubeVideos.add(new Video("https://s3.amazonaws.com/gd-images.gooddata.com/customtext/magic.html?imgurl=https%3A%2F%2Fcdn.discordapp.com%2Fattachments%2F347483038957043743%2F965314004861984768%2Fsecurus_logo-TRANS-Colour_outline.png&ratio=true",
                 "Self Defense Caution",
                 "Here are some readily available self defense tutorials found on YouTube that you might find helpful." +
-                        "\n\nThese videos are categorised, outlined and timestamped for your own convenience." +
+                        "\n\nThese videos are categorised, outlined and timestamped for your own conveniencaddede." +
                         "\n\nPlease exercise caution and stay safe while practicing these procedures. Any injuries caused will be at your own risk."));
 
         youtubeVideos.add(new Video("https://www.youtube.com/embed/wo0CHBZB0DM?start=122", "Hair Grabs",

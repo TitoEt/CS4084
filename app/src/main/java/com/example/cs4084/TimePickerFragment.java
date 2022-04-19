@@ -31,7 +31,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     private static PendingIntent pendingIntent;
 
     public TimePickerFragment() {
-        // requires a empty public constructor
+        // Requires a empty public constructor
     }
 
     @Override
@@ -60,6 +60,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         intent.setAction("android.intent.action.NOTIFY");
         pendingIntent = PendingIntent.getBroadcast(context,BROADCAST_REQUEST_CODE,intent,PendingIntent.FLAG_IMMUTABLE);
 
+        // Update shared preferences to reflect the current trip
         SharedPreferences sharedPreferences = context.getSharedPreferences("Securus", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
@@ -78,6 +79,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         Date returnTime = calendar.getTime();
         long duration = returnTime.getTime() - departTime.getTime();
 
+        // Set alarm for duration of trip
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         Toast.makeText(context, "Expected Trip Duration is " + duration/60000 + " minutes", Toast.LENGTH_LONG).show();

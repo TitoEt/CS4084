@@ -4,18 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,8 +34,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.home);
 
-        // check/request for all perms
-
         Utilities.retriveUserInfo();
     }
 
@@ -55,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
 
             case R.id.map:
+                // Restrict access to map section to users who have enabled location permissions
                 if(Utilities.hasLocationPermission(this) && Utilities.isLocationEnabled(this)) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.container, planTripFragment).commit();
                     return true;
@@ -64,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     return false;
                 }
                 else {
+                    // Allow users to update their permissions to use the map feature
                     locationAlert();
                     return false;
                 }

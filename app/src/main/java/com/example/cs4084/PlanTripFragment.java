@@ -55,7 +55,7 @@ public class PlanTripFragment extends Fragment implements OnMapReadyCallback {
 
         Utilities.getLocation(getActivity());
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        // Wait for map to become ready
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -75,6 +75,7 @@ public class PlanTripFragment extends Fragment implements OnMapReadyCallback {
         confirmRoute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Allow user to confirm route once they have set their destination
                 if(checkPoints.size() == 2) {
                     DialogFragment newFragment = new TimePickerFragment();
                     Bundle bundle = new Bundle();
@@ -122,6 +123,7 @@ public class PlanTripFragment extends Fragment implements OnMapReadyCallback {
             confirmRoute.setVisibility(View.GONE);
             cancelTrip.setVisibility(View.VISIBLE);
             checkPoints.clear();
+            // Store previous map state
             Gson gson = new Gson();
             String src = sharedPreferences.getString("src", "");
             String dst = sharedPreferences.getString("dst", "");
@@ -208,6 +210,7 @@ public class PlanTripFragment extends Fragment implements OnMapReadyCallback {
         return "https://maps.googleapis.com/maps/api/directions/json"+"?"+params;
     }
 
+    // Fetch raw data from URL provided
     private String fetchData(String src) throws IOException {
         String data = "";
         InputStream inStream = null;
