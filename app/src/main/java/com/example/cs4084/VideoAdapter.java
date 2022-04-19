@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder>{
-    ArrayList<Video> youtubeVideoList;
+    ArrayList<Video> youtubeVideoList; //List holding all the videos we want to show up on Self Def Fragment
 
     public VideoAdapter(ArrayList<Video> youtubeVideoList) {
         this.youtubeVideoList = youtubeVideoList;
@@ -24,12 +24,12 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         return new VideoViewHolder(view);
     }
 
+//    Called by RecyclerView to display the data at a specific position
     @Override
     public void onBindViewHolder(VideoViewHolder holder, int position) {
         Video current = youtubeVideoList.get(position);
 
-        // Load frame of video in web view
-//        holder.videoWeb.loadData(current.getFrame(), "text/html", "utf-8");
+        // Load url link into web view
         holder.videoWeb.loadUrl(current.getUrl());
         holder.title.setText(current.getTitle());
         holder.description.setText(current.getDescription());
@@ -41,6 +41,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
 
     }
 
+//    Represents an item in the RecyclerView, stores all the data and binds it to the view contents
     public class VideoViewHolder extends RecyclerView.ViewHolder {
         WebView videoWeb;
         TextView title;
@@ -52,7 +53,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
             videoWeb = itemView.findViewById(R.id.videoWebView);
             videoWeb.getSettings().setJavaScriptEnabled(true);
             videoWeb.setWebChromeClient(new WebChromeClient());
-            videoWeb.clearCache(true);
         }
     }
 

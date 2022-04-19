@@ -1,7 +1,7 @@
 package com.example.cs4084;
 
 public class Video {
-    private String url;
+    private String url; //Preferably embed links so that itll take up the entire web view area in layout
     private String title;
     private String description;
 
